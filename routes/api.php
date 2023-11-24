@@ -23,3 +23,4 @@ Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
 Route::get('/users/{id}', [App\Http\Controllers\UserController::class, 'show']);
 Route::put('/users/{id}', [App\Http\Controllers\UserController::class, 'update']);
 Route::put('/users/pass/{email}', [App\Http\Controllers\UserController::class, 'updatePassword']);
+Route::get('/users/images/{filename}', [App\Http\Controllers\UserController::class, 'getImageLink']);
