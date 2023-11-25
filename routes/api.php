@@ -25,3 +25,13 @@ Route::put('/users/{id}', [App\Http\Controllers\UserController::class, 'update']
 Route::put('/users/pass/{email}', [App\Http\Controllers\UserController::class, 'updatePassword']);
 Route::get('/users/images/{filename}', [App\Http\Controllers\UserController::class, 'getImageLink']);
 Route::post('/users/images/{id}', [App\Http\Controllers\UserController::class, 'uploadImage']);
+
+//CRUD MAKANANs
+Route::post('/makanans', [App\Http\Controllers\MakananController::class, 'store']);
+Route::get('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'find']);
+Route::put('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'update']);
+Route::delete('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'destroy']);
+Route::get('/makanans', [App\Http\Controllers\MakananController::class, 'index']);
+
+
+
