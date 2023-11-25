@@ -175,6 +175,49 @@ class UserController extends Controller
                 'phoneNumber' => 'required',
                 'address' => 'required',
                 'bornDate' => 'required',
+                'photo' => 'required',
+            ]);
+
+            if ($validate->fails()) {
+                return response(['message' => $validate->errors()], 400);
+            }
+
+            // $fileName = $_FILES["photo"]["name"];
+            // $tmpName = $_FILES["photo"]["tmp_name"];
+
+            // $destinationPath = public_path('images/');
+            // $uploadedFilePath = $destinationPath . $fileName;
+
+            // move_uploaded_file($tmpName, $uploadedFilePath);
+            // $input['photo'] = $fileName;
+
+            $user->update($input);
+
+            return response()->json([
+                'message' => 'Berhasil mengubah data user',
+                'data' => $user,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
+
+    public function uploadImage(Request $request, $id)
+    {
+        try {
+            $user = User::find($id)->first();
+            if (!$user) {
+                return response()->json([
+                    'message' => 'Data user tidak ditemukan',
+                    'data' => null,
+                ], 404);
+            }
+
+            $input = $request->all();
+            $validate = Validator::make($input, [
                 'photo' => 'required|mimes:jpeg,jpg,png,',
             ]);
 
