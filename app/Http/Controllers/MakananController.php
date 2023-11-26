@@ -20,7 +20,7 @@ class MakananController extends Controller
             if($makanan->count() == 0){
                 return response()->json([
                     'message' => 'Data makanan tidak ditemukan',
-                    'data' => null,
+                    'data' => [],
                 ],404);
             }
 
@@ -47,16 +47,13 @@ class MakananController extends Controller
             $validate = Validator::make($input,[
                 'namaMakanan' => 'required',
                 'hargaMakanan' => 'required',
-                'namaFoto' => 'required|mimes:jpeg,jpg,png,',
+                'namaFoto' => 'required',
             ]);
             if ($validate->fails()) {
                 return response(['message' => $validate->errors()], 400);
             }
 
-            $fileName = $_FILES["namaFoto"]["name"];
-            $tmpName = $_FILES["namaFoto"]["tmp_name"];
-            move_uploaded_file($tmpName, $fileName);
-            $input['namaFoto'] = $fileName;
+           
 
             $makanan = Makanan::create($input);
 
@@ -108,16 +105,13 @@ class MakananController extends Controller
             $validate = Validator::make($input,[
                 'namaMakanan' => 'required',
                 'hargaMakanan' => 'required',
-                'namaFoto' => 'required|mimes:jpeg,jpg,png,',
+                'namaFoto' => 'required'
             ]);
             if ($validate->fails()) {
                 return response(['message' => $validate->errors()], 400);
             }
 
-            $fileName = $_FILES["namaFoto"]["name"];
-            $tmpName = $_FILES["namaFoto"]["tmp_name"];
-            move_uploaded_file($tmpName, $fileName);
-            $input['namaFoto'] = $fileName;
+           
 
             $makanan = Makanan::find($id);
 
