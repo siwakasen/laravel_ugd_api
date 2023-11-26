@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -113,19 +113,6 @@ class UserController extends Controller
         }
     }
 
-    public function getImageLink(String $filename)
-    {
-        try {
-        $imageUrl = asset('images/' . $filename);
-        return response()->json(['data' => $imageUrl]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-                'data' => [],
-            ], 400);
-        }
-    }
-
     /**
      * Display the specified resource.
      */
@@ -182,15 +169,6 @@ class UserController extends Controller
                 return response(['message' => $validate->errors()], 400);
             }
 
-            // $fileName = $_FILES["photo"]["name"];
-            // $tmpName = $_FILES["photo"]["tmp_name"];
-
-            // $destinationPath = public_path('images/');
-            // $uploadedFilePath = $destinationPath . $fileName;
-
-            // move_uploaded_file($tmpName, $uploadedFilePath);
-            // $input['photo'] = $fileName;
-
             $user->update($input);
 
             return response()->json([
@@ -205,7 +183,20 @@ class UserController extends Controller
         }
     }
 
-    public function uploadImage(Request $request, $id)
+    public function getImageLink(String $filename)
+    {
+        try {
+        $imageUrl = asset('images/' . $filename);
+        return response()->json(['data' => $imageUrl]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
+
+    public function updateImage(Request $request, $id)
     {
         try {
             $user = User::find($id)->first();
@@ -215,16 +206,15 @@ class UserController extends Controller
                     'data' => null,
                 ], 404);
             }
-
+            
             $input = $request->all();
             $validate = Validator::make($input, [
-                'photo' => 'required|mimes:jpeg,jpg,png,',
+                'photo' => 'required',
             ]);
 
             if ($validate->fails()) {
                 return response(['message' => $validate->errors()], 400);
             }
-
             $fileName = $_FILES["photo"]["name"];
             $tmpName = $_FILES["photo"]["tmp_name"];
 
@@ -234,6 +224,11 @@ class UserController extends Controller
             move_uploaded_file($tmpName, $uploadedFilePath);
             $input['photo'] = $fileName;
 
+            //image sebelumnya akan dihapus
+            if(strcmp($user->photo,"-")!=0){
+                $this->deleteImage($user->photo);
+            }
+            
             $user->update($input);
 
             return response()->json([
@@ -245,6 +240,14 @@ class UserController extends Controller
                 'message' => $e->getMessage(),
                 'data' => [],
             ], 400);
+        }
+    }
+    private function deleteImage($oldImage)
+    {
+        $imageName = $oldImage;
+        $imagePath = 'images/' . $imageName;
+        if(File::exists($imagePath)) {
+            File::delete($imagePath);
         }
     }
 }

@@ -52,9 +52,6 @@ class MakananController extends Controller
             if ($validate->fails()) {
                 return response(['message' => $validate->errors()], 400);
             }
-
-           
-
             $makanan = Makanan::create($input);
 
             return response()->json([

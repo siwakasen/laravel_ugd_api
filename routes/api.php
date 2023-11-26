@@ -24,7 +24,7 @@ Route::get('/users/{id}', [App\Http\Controllers\UserController::class, 'show']);
 Route::put('/users/{id}', [App\Http\Controllers\UserController::class, 'update']);
 Route::put('/users/pass/{email}', [App\Http\Controllers\UserController::class, 'updatePassword']);
 Route::get('/users/images/{filename}', [App\Http\Controllers\UserController::class, 'getImageLink']);
-Route::post('/users/images/{id}', [App\Http\Controllers\UserController::class, 'uploadImage']);
+Route::post('/users/images/{id}', [App\Http\Controllers\UserController::class, 'updateImage']);
 
 //CRUD MAKANANs
 Route::post('/makanans', [App\Http\Controllers\MakananController::class, 'store']);
