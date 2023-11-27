@@ -29,9 +29,9 @@ Route::post('/users/images/{id}', [App\Http\Controllers\UserController::class, '
 //CRUD MAKANANs
 Route::post('/makanans', [App\Http\Controllers\MakananController::class, 'store']);
 Route::get('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'find']);
-Route::put('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'update']);
+Route::post('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'update']);
 Route::delete('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'destroy']);
 Route::get('/makanans', [App\Http\Controllers\MakananController::class, 'index']);
-
-
+Route::get('/makanans/images/all', [App\Http\Controllers\MakananController::class, 'getAllImageLink']);
+Route::get('/makanans/images/{filename}', [App\Http\Controllers\MakananController::class, 'getImageLink']);
 
