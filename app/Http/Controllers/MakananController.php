@@ -148,6 +148,40 @@ class MakananController extends Controller
             ], 400);
         }
     }
+    public function updateNoImage(Request $request, $id)
+    {
+        try {
+            $input = $request->all();
+
+            $validate = Validator::make($input, [
+                'namaMakanan' => 'required',
+                'hargaMakanan' => 'required',
+            ]);
+            if ($validate->fails()) {
+                return response(['message' => $validate->errors()], 400);
+            }
+            $makanan = Makanan::find($id);
+
+            if (!$makanan) {
+                return response()->json([
+                    'message' => 'Data makanan tidak ditemukan',
+                    'data' => null,
+                ], 404);
+            }
+
+            $makanan->update($input);
+
+            return response()->json([
+                'message' => 'Berhasil mengubah data makanan',
+                'data' => $makanan,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
     private function deleteImage($oldImage)
     {
         $imageName = $oldImage;

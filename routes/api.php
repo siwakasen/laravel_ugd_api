@@ -30,6 +30,7 @@ Route::post('/users/images/{id}', [App\Http\Controllers\UserController::class, '
 Route::post('/makanans', [App\Http\Controllers\MakananController::class, 'store']);
 Route::get('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'find']);
 Route::post('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'update']);
+Route::put('/makanans/noImage/{id}', [App\Http\Controllers\MakananController::class, 'updateNoImage']);
 Route::delete('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'destroy']);
 Route::get('/makanans', [App\Http\Controllers\MakananController::class, 'index']);
 Route::get('/makanans/images/all', [App\Http\Controllers\MakananController::class, 'getAllImageLink']);
