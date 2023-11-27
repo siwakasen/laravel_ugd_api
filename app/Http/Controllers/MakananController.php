@@ -242,4 +242,12 @@ class MakananController extends Controller
             ], 400);
         }
     }
+    private function deleteImage($oldImage)
+    {
+        $imageName = $oldImage;
+        $imagePath = 'imagesMakanan/' . $imageName;
+        if(File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+    }
 }
