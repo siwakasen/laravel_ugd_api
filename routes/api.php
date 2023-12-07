@@ -34,6 +34,8 @@ Route::get('/restaurants', [App\Http\Controllers\RestaurantController::class, 'i
 Route::post('/items', [App\Http\Controllers\ItemController::class, 'store']);
 Route::get('/items', [App\Http\Controllers\ItemController::class, 'index']);
 Route::get('/items/{typename}', [App\Http\Controllers\ItemController::class, 'show']);
+Route::get('/items/images/all', [App\Http\Controllers\ItemController::class, 'getAllImageLink']);
+Route::get('/items/images/{filename}', [App\Http\Controllers\ItemController::class, 'getImageLink']);
 
 Route::post('/voucher', [App\Http\Controllers\VoucherController::class, 'store']);
 Route::get('/voucher', [App\Http\Controllers\VoucherController::class, 'index']);

@@ -7,6 +7,8 @@ use App\Models\type_item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\TypeItem;
+use Illuminate\Support\Facades\File;
+
 
 class ItemController extends Controller
 {
@@ -117,7 +119,37 @@ class ItemController extends Controller
             ], 400);
         }
     }
+    public function getImageLink(String $filename)
+    {
+        try {
+            $imageUrl = asset('images/' . $filename);
+            return response()->json(['data' => $imageUrl]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
+    public function getAllImageLink()
+    {
+        try {
+            $imageDirectory = public_path('images');
+            $imageFiles = File::files($imageDirectory);
 
+            $imageUrls = [];
+            foreach ($imageFiles as $file) {
+                $imageUrls[] = asset('images/' . $file->getFilename());
+            }
+
+            return response()->json(['data' => $imageUrls]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
     /**
      * Update the specified resource in storage.
      */
