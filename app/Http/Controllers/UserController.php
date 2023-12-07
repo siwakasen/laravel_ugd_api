@@ -25,7 +25,8 @@ class UserController extends Controller
                 'phoneNumber' => 'required',
                 'address' => 'required',
                 'bornDate' => 'required',
-                'photo' => 'required'
+                'photo' => 'required',
+                'id_restaurant' => 'required',
             ]);
 
             if ($validate->fails()) {
@@ -113,6 +114,38 @@ class UserController extends Controller
         }
     }
 
+    public function updateRestoran(Request $request, $id)
+    {
+        try {
+            $user = User::where('id', $id)->first();
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User tidak ditemukan',
+                    'data' => [],
+                ], 404);
+            }
+            $input = $request->all();
+            $validate = Validator::make($input, [
+                'id_restaurant' => 'required',
+            ]);
+
+            if ($validate->fails()) {
+                return response(['message' => $validate->errors()], 400);
+            }
+            $user->id_restaurant = $input['id_restaurant'];
+            $user->save();
+            return response()->json([
+                'message' => 'Berhasil mengubah id restoran',
+                'data' => $user,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
+
     /**
      * Display the specified resource.
      */
@@ -186,8 +219,8 @@ class UserController extends Controller
     public function getImageLink(String $filename)
     {
         try {
-        $imageUrl = asset('images/' . $filename);
-        return response()->json(['data' => $imageUrl]);
+            $imageUrl = asset('images/' . $filename);
+            return response()->json(['data' => $imageUrl]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -206,7 +239,7 @@ class UserController extends Controller
                     'data' => null,
                 ], 404);
             }
-            
+
             $input = $request->all();
             $validate = Validator::make($input, [
                 'photo' => 'required',
@@ -225,10 +258,10 @@ class UserController extends Controller
             $input['photo'] = $fileName;
 
             //image sebelumnya akan dihapus
-            if(strcmp($user->photo,"-")!=0){
+            if (strcmp($user->photo, "-") != 0) {
                 $this->deleteImage($user->photo);
             }
-            
+
             $user->update($input);
 
             return response()->json([
@@ -246,7 +279,7 @@ class UserController extends Controller
     {
         $imageName = $oldImage;
         $imagePath = 'images/' . $imageName;
-        if(File::exists($imagePath)) {
+        if (File::exists($imagePath)) {
             File::delete($imagePath);
         }
     }

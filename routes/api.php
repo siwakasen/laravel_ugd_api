@@ -23,16 +23,54 @@ Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
 Route::get('/users/{id}', [App\Http\Controllers\UserController::class, 'show']);
 Route::put('/users/{id}', [App\Http\Controllers\UserController::class, 'update']);
 Route::put('/users/pass/{email}', [App\Http\Controllers\UserController::class, 'updatePassword']);
+Route::put('/users/restaurant/{id}', [App\Http\Controllers\UserController::class, 'updateRestoran']);
 Route::get('/users/images/{filename}', [App\Http\Controllers\UserController::class, 'getImageLink']);
 Route::post('/users/images/{id}', [App\Http\Controllers\UserController::class, 'updateImage']);
 
-//CRUD MAKANANs
-Route::post('/makanans', [App\Http\Controllers\MakananController::class, 'store']);
-Route::get('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'find']);
-Route::post('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'update']);
-Route::put('/makanans/noImage/{id}', [App\Http\Controllers\MakananController::class, 'updateNoImage']);
-Route::delete('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'destroy']);
-Route::get('/makanans', [App\Http\Controllers\MakananController::class, 'index']);
-Route::get('/makanans/images/all', [App\Http\Controllers\MakananController::class, 'getAllImageLink']);
-Route::get('/makanans/images/{filename}', [App\Http\Controllers\MakananController::class, 'getImageLink']);
 
+Route::post('/restaurants', [App\Http\Controllers\RestaurantController::class, 'store']);
+Route::get('/restaurants', [App\Http\Controllers\RestaurantController::class, 'index']);
+
+Route::post('/items', [App\Http\Controllers\ItemController::class, 'store']);
+Route::get('/items', [App\Http\Controllers\ItemController::class, 'index']);
+Route::get('/items/{typename}', [App\Http\Controllers\ItemController::class, 'show']);
+
+Route::post('/voucher', [App\Http\Controllers\VoucherController::class, 'store']);
+Route::get('/voucher', [App\Http\Controllers\VoucherController::class, 'index']);
+
+Route::post('/ratings', [App\Http\Controllers\RatingController::class, 'store']);
+Route::get('/ratings', [App\Http\Controllers\RatingController::class, 'index']);
+
+Route::post('/subscription', [App\Http\Controllers\SubscriptionController::class, 'store']);
+Route::get('/subscription', [App\Http\Controllers\SubscriptionController::class, 'index']);
+
+Route::post('/subscription_user', [App\Http\Controllers\SubscriptionUserController::class, 'store']);
+Route::get('/subscription_user', [App\Http\Controllers\SubscriptionUserController::class, 'index']);
+
+Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store']);
+Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
+Route::get('/transactions/{id}', [App\Http\Controllers\TransactionController::class, 'show']);
+Route::put('/transactions/{id}', [App\Http\Controllers\TransactionController::class, 'update']);
+Route::put('/transactions/voucher/{id}', [App\Http\Controllers\TransactionController::class, 'updateVoucher']);
+
+Route::post('/ratings', [App\Http\Controllers\RatingController::class, 'store']);
+Route::get('/ratings', [App\Http\Controllers\RatingController::class, 'index']);
+
+
+Route::post('/type_items', [App\Http\Controllers\TypeItemController::class, 'store']);
+Route::get('/type_items', [App\Http\Controllers\TypeItemController::class, 'index']);
+
+Route::post('/detail_transactions', [App\Http\Controllers\DetailTransaksiController::class, 'store']);
+Route::get('/detail_transactions', [App\Http\Controllers\DetailTransaksiController::class, 'index']);
+
+
+
+//CRUD MAKANANs
+// Route::post('/makanans', [App\Http\Controllers\MakananController::class, 'store']);
+// Route::get('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'find']);
+// Route::post('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'update']);
+// Route::put('/makanans/noImage/{id}', [App\Http\Controllers\MakananController::class, 'updateNoImage']);
+// Route::delete('/makanans/{id}', [App\Http\Controllers\MakananController::class, 'destroy']);
+// Route::get('/makanans', [App\Http\Controllers\MakananController::class, 'index']);
+// Route::get('/makanans/images/all', [App\Http\Controllers\MakananController::class, 'getAllImageLink']);
+// Route::get('/makanans/images/{filename}', [App\Http\Controllers\MakananController::class, 'getImageLink']);

@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->string('password');
-            $table->string('name');
             $table->string('email');
-            $table->string('phoneNumber');
+            $table->string('name');
+            $table->string('password');
             $table->string('address');
             $table->date('bornDate');
+            $table->string('phoneNumber');
             $table->string('photo');
+            $table->unsignedBigInteger('id_restaurant')->nullable();
+            $table->foreign('id_restaurant')->references('id')->on('restaurants')->onDelete('cascade');
         });
     }
 
