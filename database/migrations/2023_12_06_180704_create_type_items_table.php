@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('type_items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('size')->nullable();
             $table->string('customize')->nullable();
         });
     }

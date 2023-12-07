@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->string('photo');
+            $table->string('size');
             $table->unsignedBigInteger('id_type')->nullable();
             $table->foreign('id_type')->references('id')->on('type_items')->onDelete('cascade');
         });
