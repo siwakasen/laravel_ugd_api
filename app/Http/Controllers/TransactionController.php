@@ -85,9 +85,35 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(transaction $transaction)
+    public function show($iduser)
     {
-        //
+        try {
+            $transaksiUser = transaction::where('id_user', $iduser)->get();
+
+            if (!$transaksiUser) {
+                return response()->json([
+                    'message' => 'Belum ada data transaksi untuk user ini',
+                    'data' => [],
+                ], 404);
+            }
+
+            if ($transaksiUser->isEmpty()) {
+                return response()->json([
+                    'message' => 'No transaction found for the specified user id.',
+                    'data' => [],
+                ], 404);
+            }
+
+            return response()->json([
+                'message' => 'Successfully fetched transactions by user id.',
+                'data' => $transaksiUser,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
     }
 
     /**
