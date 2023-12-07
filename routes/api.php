@@ -42,6 +42,7 @@ Route::get('/voucher', [App\Http\Controllers\VoucherController::class, 'index'])
 
 Route::post('/ratings', [App\Http\Controllers\RatingController::class, 'store']);
 Route::get('/ratings', [App\Http\Controllers\RatingController::class, 'index']);
+Route::get('/ratings/{id}', [App\Http\Controllers\RatingController::class, 'show']);
 
 Route::post('/subscription', [App\Http\Controllers\SubscriptionController::class, 'store']);
 Route::get('/subscription', [App\Http\Controllers\SubscriptionController::class, 'index']);

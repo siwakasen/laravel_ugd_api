@@ -14,4 +14,9 @@ class rating extends Model
         'stars',
         'notes',
     ];
+
+    public function transaction()
+    {
+        return $this->belongsTo(transaction::class, 'id_transaksi', 'id');
+    }
 }

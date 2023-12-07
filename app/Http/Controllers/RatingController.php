@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
+use App\Models\transaction;
 
 class RatingController extends Controller
 {
@@ -70,20 +72,44 @@ class RatingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($string)
+    public function show($iduser)
     {
         try {
-            $rating = Rating::find($string);
-            if (!$rating) {
+            $user = User::find($iduser);
+            if (!$user) {
                 return response()->json([
-                    'message' => 'Data rating tidak ditemukan',
+                    'message' => 'Data user tidak ditemukan',
                     'data' => null,
                 ], 404);
             }
 
+            $transaksi = transaction::where('id_user', $iduser)->get();
+            if ($transaksi->isEmpty()) {
+                return response()->json([
+                    'message' => 'No transactions found for this user.',
+                    'data' => [],
+                ], 404);
+            }
+
+            $kumpulanRating = collect();
+
+            foreach ($transaksi as $transaction) {
+                $ratings = Rating::where('id_transaksi', $transaction->id)->get();
+                $kumpulanRating = $kumpulanRating->merge($ratings);
+            }
+
+            if ($kumpulanRating->isEmpty()) {
+                return response()->json([
+                    'message' => 'No ratings found for the transactions of this user.',
+                    'data' => [],
+                ], 404);
+            }
+
+
+
             return response()->json([
-                'message' => 'Berhasil menampilkan data rating dengan nama ' . $rating->id_transaksi . '',
-                'data' => $rating,
+                'message' => 'Berhasil menampilkan data rating untuk pengguna dengan ID ' . $iduser,
+                'data' => $kumpulanRating,
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
