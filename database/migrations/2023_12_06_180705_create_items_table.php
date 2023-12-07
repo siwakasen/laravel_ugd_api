@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('photo');
             $table->unsignedBigInteger('id_type')->nullable();
             $table->foreign('id_type')->references('id')->on('type_items')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

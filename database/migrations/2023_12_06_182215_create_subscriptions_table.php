@@ -16,7 +16,6 @@ return new class extends Migration
             $table->String('name');
             $table->float('price');
             $table->integer('percentage');
-            $table->timestamps();
         });
     }
 

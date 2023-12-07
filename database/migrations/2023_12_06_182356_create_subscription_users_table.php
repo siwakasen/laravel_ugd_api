@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->timestamps();
         });
     }
 
