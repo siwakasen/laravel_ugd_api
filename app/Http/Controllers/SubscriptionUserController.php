@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\subscription_user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Carbon\Carbon;
 
 class SubscriptionUserController extends Controller
 {
@@ -52,7 +52,8 @@ class SubscriptionUserController extends Controller
                 return response(['message' => $validate->errors()], 400);
             }
 
-
+            $input['start_date'] = Carbon::now();
+            $input['end_date'] = Carbon::now()->addMonth();
             $subscriptionuser = subscription_user::create($input);
 
             return response()->json([
