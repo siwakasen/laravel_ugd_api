@@ -74,7 +74,7 @@ class DetailTransaksiController extends Controller
     public function show($idTrans)
     {
         try {
-            $data = detailTransaksi::find($idTrans);
+            $data = detailTransaksi::where('id_transaksi', $idTrans)->get();
 
             if ($data->count() == 0) {
                 return response()->json([
