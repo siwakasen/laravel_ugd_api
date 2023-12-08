@@ -74,12 +74,12 @@ class SubscriptionUserController extends Controller
     public function show($id)
     {
         try {
-            $subscription = subscription_user::where('user_id', $id)->get();
-
-            if ($subscription->count() == 0) {
+            $subscription = subscription_user::where('user_id', $id)->first();
+            
+            if (!$subscription) {
                 return response()->json([
                     'message' => 'Data subscription tidak ditemukan',
-                    'data' => [],
+                    'data' => null,
                 ], 404);
             }
 
@@ -102,6 +102,7 @@ class SubscriptionUserController extends Controller
     {
         try {
             $input = $request->all();
+            
 
             $validate = Validator::make($input, [
                 'subscription_id' => 'required',
@@ -109,7 +110,7 @@ class SubscriptionUserController extends Controller
             if ($validate->fails()) {
                 return response(['message' => $validate->errors()], 400);
             }
-            $subscription = subscription_user::find($id);
+            $subscription = subscription_user::where('user_id', $id)->first();
 
             if (!$subscription) {
                 return response()->json([
@@ -138,8 +139,8 @@ class SubscriptionUserController extends Controller
     public function destroy($id)
     {
         try {
-            $subs = subscription_user::find($id);
-
+            $subs = subscription_user::where('user_id', $id)->first();
+            
             if (!$subs) {
                 return response()->json([
                     'message' => 'Data subs tidak ditemukan',

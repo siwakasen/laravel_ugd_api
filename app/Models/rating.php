@@ -9,7 +9,6 @@ class rating extends Model
 {
     use HasFactory;
     public $timestamps = false;
-
     protected $table = 'ratings';
     protected $fillable = [
         'id_transaksi',

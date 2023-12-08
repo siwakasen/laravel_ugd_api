@@ -30,6 +30,7 @@ Route::post('/users/images/{id}', [App\Http\Controllers\UserController::class, '
 
 Route::post('/restaurants', [App\Http\Controllers\RestaurantController::class, 'store']);
 Route::get('/restaurants', [App\Http\Controllers\RestaurantController::class, 'index']);
+Route::get('/restaurants/{id}', [App\Http\Controllers\RestaurantController::class, 'show']);
 
 Route::post('/items', [App\Http\Controllers\ItemController::class, 'store']);
 Route::get('/items', [App\Http\Controllers\ItemController::class, 'index']);

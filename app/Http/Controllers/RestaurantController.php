@@ -69,4 +69,27 @@ class RestaurantController extends Controller
             ], 400);
         }
     }
+    public function show($id)
+    {
+        try {
+            $restoran = Restaurant::find($id);
+
+            if ($restoran->count() == 0) {
+                return response()->json([
+                    'message' => 'Data restoran tidak ditemukan',
+                    'data' => [],
+                ], 404);
+            }
+
+            return response()->json([
+                'message' => 'Berhasil menampilkan data restoran',
+                'data' => $restoran,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
 }

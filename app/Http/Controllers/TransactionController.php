@@ -98,18 +98,14 @@ class TransactionController extends Controller
     public function show($iduser)
     {
         try {
-            $transaksiUser = transaction::where('id_user', $iduser)->where('status', contains('wait'))->get();
+            $transaksiUser = Transaction::where('id_user', $iduser)
+            ->where('status', 'like', '%wait%')
+            ->orderby('datetime', 'desc')
+            ->first();
 
             if (!$transaksiUser) {
                 return response()->json([
                     'message' => 'Belum ada data transaksi untuk user ini',
-                    'data' => [],
-                ], 404);
-            }
-
-            if ($transaksiUser->isEmpty()) {
-                return response()->json([
-                    'message' => 'No transaction found for the specified user id.',
                     'data' => [],
                 ], 404);
             }
