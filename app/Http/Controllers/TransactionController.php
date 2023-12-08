@@ -44,7 +44,7 @@ class TransactionController extends Controller
     public function successOnly()
     {
         try {
-            $transaction = transaction::successOnly();
+            $transaction = transaction::where('status', 'like', '%Success%')->get();
 
             if ($transaction->count() == 0) {
                 return response()->json([
