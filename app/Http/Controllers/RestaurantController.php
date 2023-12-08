@@ -72,9 +72,9 @@ class RestaurantController extends Controller
     public function show($id)
     {
         try {
-            $restoran = Restaurant::find($id);
+            $restoran = Restaurant::where('id', $id)->first();
 
-            if ($restoran->count() == 0) {
+            if (!$restoran) {
                 return response()->json([
                     'message' => 'Data restoran tidak ditemukan',
                     'data' => [],

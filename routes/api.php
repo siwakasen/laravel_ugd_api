@@ -41,10 +41,6 @@ Route::get('/items/images/{filename}', [App\Http\Controllers\ItemController::cla
 Route::post('/voucher', [App\Http\Controllers\VoucherController::class, 'store']);
 Route::get('/voucher', [App\Http\Controllers\VoucherController::class, 'index']);
 
-Route::post('/ratings', [App\Http\Controllers\RatingController::class, 'store']);
-Route::get('/ratings', [App\Http\Controllers\RatingController::class, 'index']);
-Route::get('/ratings/{id}', [App\Http\Controllers\RatingController::class, 'show']);
-
 Route::post('/subscription', [App\Http\Controllers\SubscriptionController::class, 'store']);
 Route::get('/subscription', [App\Http\Controllers\SubscriptionController::class, 'index']);
 
@@ -62,6 +58,9 @@ Route::put('/transactions/voucher/{id}', [App\Http\Controllers\TransactionContro
 
 Route::post('/ratings', [App\Http\Controllers\RatingController::class, 'store']);
 Route::get('/ratings', [App\Http\Controllers\RatingController::class, 'index']);
+Route::get('/ratings/{id}', [App\Http\Controllers\RatingController::class, 'show']);
+Route::put('/ratings/{id', [App\Http\Controllers\RatingController::class, 'update']);
+Route::delete('/ratings', [App\Http\Controllers\RatingController::class, 'destroy']);
 
 
 Route::post('/type_items', [App\Http\Controllers\TypeItemController::class, 'store']);

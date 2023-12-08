@@ -26,7 +26,6 @@ class UserController extends Controller
                 'address' => 'required',
                 'bornDate' => 'required',
                 'photo' => 'required',
-                'id_restaurant' => 'required',
             ]);
 
             if ($validate->fails()) {
