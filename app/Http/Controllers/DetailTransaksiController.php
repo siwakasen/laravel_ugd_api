@@ -71,9 +71,28 @@ class DetailTransaksiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(detailTransaksi $detailTransaksi)
+    public function show($idTrans)
     {
-        //
+        try {
+            $data = detailTransaksi::find($idTrans);
+
+            if ($data->count() == 0) {
+                return response()->json([
+                    'message' => 'Data detailTransaksi tidak ditemukan',
+                    'data' => [],
+                ], 404);
+            }
+
+            return response()->json([
+                'message' => 'Berhasil menampilkan data detailTransaksi',
+                'data' => $data,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
     }
 
     /**

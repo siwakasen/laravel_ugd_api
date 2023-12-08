@@ -53,18 +53,28 @@ class TransactionController extends Controller
             $validate = Validator::make($input, [
                 'id_user' => 'required',
                 'id_restaurant' => 'required',
-                // 'id_voucher' => 'required',
-                // 'address_on_trans' => 'required',
-                // 'delivery_fee' => 'required',
-                // 'order_fee' => 'required',
-                // 'status' => 'required',
-                // 'paymentMethod' => 'required',
-                // 'datetime' => 'required',
+                'address_on_trans' => 'required',
+                'subtotal' => 'required',
+                'delivery_fee' => 'required',
+                'order_fee' => 'required',
+                'status' => 'required',
+
             ]);
             if ($validate->fails()) {
                 return response(['message' => $validate->errors()], 400);
             }
-            //((delivery fee + order fee + subtotal - voucher) - ((delivery fee + order fee + subtotal - voucher) * subspercentage)
+            $subsdisc = 0;
+            $search = subscription_user::where('user_id', $input["id_user"])->first();
+            if ($search != null) {
+
+                // $search = subscription_user::find($search->subscription_id);
+                $here = subscription::find($search->subscription_id);
+                $subsdisc = $here->percentage;
+            } else {
+                $subsdisc = 0;
+            }
+            $potonganSubs = ($input['subtotal'] + $input['delivery_fee'] + $input['order_fee'])* $subsdisc / 100;
+            $input['total']= ($input['subtotal'] + $input['delivery_fee'] + $input['order_fee']) - $potonganSubs;
 
             $input['datetime'] = Carbon::now();
 
@@ -88,7 +98,7 @@ class TransactionController extends Controller
     public function show($iduser)
     {
         try {
-            $transaksiUser = transaction::where('id_user', $iduser)->get();
+            $transaksiUser = transaction::where('id_user', $iduser)->where('status', contains('wait'))->get();
 
             if (!$transaksiUser) {
                 return response()->json([

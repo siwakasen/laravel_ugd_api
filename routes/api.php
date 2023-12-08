@@ -68,6 +68,7 @@ Route::get('/type_items', [App\Http\Controllers\TypeItemController::class, 'inde
 
 Route::post('/detail_transactions', [App\Http\Controllers\DetailTransaksiController::class, 'store']);
 Route::get('/detail_transactions', [App\Http\Controllers\DetailTransaksiController::class, 'index']);
+Route::get('/detail_transactions/{id}', [App\Http\Controllers\DetailTransaksiController::class, 'show']);
 
 
 
