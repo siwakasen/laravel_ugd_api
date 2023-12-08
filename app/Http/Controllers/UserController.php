@@ -194,7 +194,6 @@ class UserController extends Controller
                 'phoneNumber' => 'required',
                 'address' => 'required',
                 'bornDate' => 'required',
-                'photo' => 'required',
             ]);
 
             if ($validate->fails()) {
