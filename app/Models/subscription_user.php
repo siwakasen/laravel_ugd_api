@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class subscription_user extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
     protected $table = 'subscription_users';
     protected $fillable = [
         'user_id',

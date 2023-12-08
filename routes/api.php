@@ -49,6 +49,9 @@ Route::get('/subscription', [App\Http\Controllers\SubscriptionController::class,
 
 Route::post('/subscription_user', [App\Http\Controllers\SubscriptionUserController::class, 'store']);
 Route::get('/subscription_user', [App\Http\Controllers\SubscriptionUserController::class, 'index']);
+Route::get('/subscription_user/{id}', [App\Http\Controllers\SubscriptionUserController::class, 'show']);
+Route::put('/subscription_user/{id}', [App\Http\Controllers\SubscriptionUserController::class, 'update']);
+Route::delete('/subscription_user/{id}', [App\Http\Controllers\SubscriptionUserController::class, 'destroy']);
 
 Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store']);
 Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class type_item extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
     protected $table = 'type_items';
     protected $fillable = [
         'name',

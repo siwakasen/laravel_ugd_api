@@ -61,7 +61,7 @@ class ItemController extends Controller
             $fileName = $_FILES["photo"]["name"];
             $tmpName = $_FILES["photo"]["tmp_name"];
 
-            $destinationPath = public_path('images/');
+            $destinationPath = public_path('imagesMakanan/');
             $uploadedFilePath = $destinationPath . $fileName;
 
             move_uploaded_file($tmpName, $uploadedFilePath);
@@ -122,7 +122,7 @@ class ItemController extends Controller
     public function getImageLink(String $filename)
     {
         try {
-            $imageUrl = asset('images/' . $filename);
+            $imageUrl = asset('imagesMakanan/' . $filename);
             return response()->json(['data' => $imageUrl]);
         } catch (\Exception $e) {
             return response()->json([
@@ -134,12 +134,12 @@ class ItemController extends Controller
     public function getAllImageLink()
     {
         try {
-            $imageDirectory = public_path('images');
+            $imageDirectory = public_path('imagesMakanan');
             $imageFiles = File::files($imageDirectory);
 
             $imageUrls = [];
             foreach ($imageFiles as $file) {
-                $imageUrls[] = asset('images/' . $file->getFilename());
+                $imageUrls[] = asset('imagesMakanan/' . $file->getFilename());
             }
 
             return response()->json(['data' => $imageUrls]);
