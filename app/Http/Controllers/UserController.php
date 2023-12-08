@@ -282,4 +282,27 @@ class UserController extends Controller
             File::delete($imagePath);
         }
     }
+    public function index()
+    {
+        try {
+            $user = User::all();
+ 
+            if ($user->count() == 0) {
+                return response()->json([
+                    'message' => 'Data user tidak ditemukan',
+                    'data' => [],
+                ], 404);
+            }
+ 
+            return response()->json([
+                'message' => 'Berhasil menampilkan data user',
+                'data' => $user,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
 }

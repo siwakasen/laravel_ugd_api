@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\MakananController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('makanan', MakananController::class);
 
 Route::post('/register', [App\Http\Controllers\UserController::class, 'register']);
 Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
@@ -26,7 +24,7 @@ Route::put('/users/pass/{email}', [App\Http\Controllers\UserController::class, '
 Route::put('/users/restaurant/{id}', [App\Http\Controllers\UserController::class, 'updateRestoran']);
 Route::get('/users/images/{filename}', [App\Http\Controllers\UserController::class, 'getImageLink']);
 Route::post('/users/images/{id}', [App\Http\Controllers\UserController::class, 'updateImage']);
-
+Route::get('/users', [App\Http\Controllers\UserController::class, 'index']);
 
 Route::post('/restaurants', [App\Http\Controllers\RestaurantController::class, 'store']);
 Route::get('/restaurants', [App\Http\Controllers\RestaurantController::class, 'index']);
@@ -52,15 +50,17 @@ Route::delete('/subscription_user/{id}', [App\Http\Controllers\SubscriptionUserC
 
 Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store']);
 Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
+Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'successOnly']);
 Route::get('/transactions/{id}', [App\Http\Controllers\TransactionController::class, 'show']);
 Route::put('/transactions/{id}', [App\Http\Controllers\TransactionController::class, 'update']);
 Route::put('/transactions/voucher/{id}', [App\Http\Controllers\TransactionController::class, 'updateVoucher']);
+Route::put('/transactions/status/{id}', [App\Http\Controllers\TransactionController::class, 'updateStatus']);
 
 Route::post('/ratings', [App\Http\Controllers\RatingController::class, 'store']);
 Route::get('/ratings', [App\Http\Controllers\RatingController::class, 'index']);
 Route::get('/ratings/{id}', [App\Http\Controllers\RatingController::class, 'show']);
-Route::put('/ratings/{id', [App\Http\Controllers\RatingController::class, 'update']);
-Route::delete('/ratings', [App\Http\Controllers\RatingController::class, 'destroy']);
+Route::put('/ratings/{id}', [App\Http\Controllers\RatingController::class, 'update']);
+Route::delete('/ratings/{id}', [App\Http\Controllers\RatingController::class, 'destroy']);
 
 
 Route::post('/type_items', [App\Http\Controllers\TypeItemController::class, 'store']);

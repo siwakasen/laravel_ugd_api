@@ -41,6 +41,29 @@ class TransactionController extends Controller
             ], 400);
         }
     }
+    public function successOnly()
+    {
+        try {
+            $transaction = transaction::successOnly();
+
+            if ($transaction->count() == 0) {
+                return response()->json([
+                    'message' => 'Data transaction tidak dtransactionukan',
+                    'data' => [],
+                ], 404);
+            }
+
+            return response()->json([
+                'message' => 'Berhasil menampilkan data transaction',
+                'data' => $transaction,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -203,6 +226,34 @@ class TransactionController extends Controller
 
             $targetTransaction->update($input);
 
+            return response()->json([
+                'message' => 'Berhasil mengedit data transaction update voucher',
+                'data' => $targetTransaction,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => [],
+            ], 400);
+        }
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $targetTransaction = transaction::find($id);
+ 
+            $input = $request->all();
+            $validate = Validator::make($input, [
+                'status' => 'required',
+            ]);
+ 
+            if ($validate->fails()) {
+                return response(['message' => $validate->errors()], 400);
+            }
+ 
+            $targetTransaction->update($input);
+ 
             return response()->json([
                 'message' => 'Berhasil mengedit data transaction update voucher',
                 'data' => $targetTransaction,

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_transaksi')->nullable();
             $table->foreign('id_transaksi')->references('id')->on('transactions')->onDelete('cascade');
             $table->integer('stars');
-            $table->string('notes');
+            $table->string('notes')->nullable();;
         });
     }
 

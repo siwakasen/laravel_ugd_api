@@ -48,7 +48,6 @@ class RatingController extends Controller
             $validate = Validator::make($input, [
                 'id_transaksi' => 'required',
                 'stars' => 'required',
-                'notes' => 'required',
             ]);
             if ($validate->fails()) {
                 return response(['message' => $validate->errors()], 400);
@@ -131,7 +130,6 @@ class RatingController extends Controller
             $validate = Validator::make($input, [
                 'id_transaksi' => 'required',
                 'stars' => 'required',
-                'notes' => 'required',
             ]);
 
             if ($validate->fails()) {
@@ -162,7 +160,7 @@ class RatingController extends Controller
     public function destroy($id)
     {
         try {
-            $rating = Rating::find($id);
+            $rating = Rating::where('id_transaksi', $id)->first();
             $rating->delete();
 
             return response()->json([
