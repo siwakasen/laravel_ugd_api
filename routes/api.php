@@ -50,7 +50,7 @@ Route::delete('/subscription_user/{id}', [App\Http\Controllers\SubscriptionUserC
 
 Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store']);
 Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
-Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'successOnly']);
+Route::get('/transactions/success', [App\Http\Controllers\TransactionController::class, 'successOnly']);
 Route::get('/transactions/{id}', [App\Http\Controllers\TransactionController::class, 'show']);
 Route::put('/transactions/{id}', [App\Http\Controllers\TransactionController::class, 'update']);
 Route::put('/transactions/voucher/{id}', [App\Http\Controllers\TransactionController::class, 'updateVoucher']);
